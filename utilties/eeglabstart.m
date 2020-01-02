@@ -7,8 +7,8 @@ function eeglabstart(varargin)
 
 % Shiang Hu, Oct. 7, 2019
 
-addpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\Toolbox\eeglab');
-addpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\Toolbox\eeglab\sample_locs')
+addpath('/media/shu/hdd/toolbox/eeglab14_1_2b');
+addpath('/media/shu/hdd/toolbox/eeglab14_1_2b\sample_locs')
 
 % add the starting path of eeglab
 if nargin == 0
