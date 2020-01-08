@@ -1,1 +1,0 @@
-rmpath('/media/shu/hdd/toolbox/eeglab14_1_2b');
