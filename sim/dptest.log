@@ -1,0 +1,28 @@
+# dipole select log
+# sEEG picked
+
+# usually, rank of EEG waveforms and cross specttrum = 
+#          number of dipoles activated
+#          rank of the multichannel power spectra matrix
+#          = 2* number of dipoles activated 
+
+# nd = 1
+when nd = 1, PaLOS = 1, rank = 1, mr=1
+d = 152; % left precentral gyrus
+d = 830; % left occipital
+
+# nd = 2
+
+d = [1182 830]; % right frontal, left occipital
+palos = 0.54;
+
+d = [1058 1059]; % right angular gyrus
+palos = 0.9402;
+mr = 0.9933; % mean correlations of channel power topomaps
+
+
+# nd = 3
+
+d = [1058 1059 1060];  % right angular gyrus
+palos = 0.7366;
+mr = 0.9883;
