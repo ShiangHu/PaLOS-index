@@ -2,7 +2,7 @@
 % eeglabstart; BSTstart('');
 addpath(genpath(cd),genpath('/media/shu/hdd/iEEG study'));
 clean; eeglab;
-elc = 'bst63.xyz';
+elc = '/media/shu/hdd/toolbox/lossless/fixlsls/cuba58/cuba58.sfp';
 fs = 200; % Hz
 fm = 50; % maximum frequency
 nw = 3;
