@@ -1,0 +1,7 @@
+# pick the artifacts from CMI and Cuba database
+
+# type of artifacts
+brain muscle eye heart line_noise chan_noise other
+
+# with all types of artifacts after amica
+CMI: 350
