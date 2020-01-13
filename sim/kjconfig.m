@@ -12,10 +12,13 @@ function [K, J, dipinfo] = kjconfig(nd)
 % Shiang Hu, Jan. 8, 2020
 
 % compute lead field for ICBM152 chn65 and MNI iEEG cortex (see plotmesh.m)
-K_srf = load('/home/shu/brainstorm_db/Protocol01/data/Subject01/@intra/headmodel_surf_openmeeg.mat');
-K_vol = load('/home/shu/brainstorm_db/Protocol01/data/Subject01/@intra/headmodel_vol_openmeeg.mat');
-K_srf.Gainfix = bst_gain_orient(K_srf.Gain([1:18,21:end],:), K_srf.GridOrient); % remove 19 20 NaNs
-K_vol.Gain = K_vol.Gain([1:18,21:end],:);
+% K_srf = load('/home/shu/brainstorm_db/Protocol01/data/Subject01/@intra/headmodel_surf_openmeeg.mat');
+K_srf = load('/home/shu/brainstorm_db/Protocol01/data/Subject02/@intra/headmodel_surf_openmeeg.mat');
+% K_vol = load('/home/shu/brainstorm_db/Protocol01/data/Subject01/@intra/headmodel_vol_openmeeg.mat');
+% K_vol = load('/home/shu/brainstorm_db/Protocol01/data/Subject02/@intra/headmodel_vol_openmeeg.mat');
+% K_srf.Gainfix = bst_gain_orient(K_srf.Gain([1:18,21:end],:), K_srf.GridOrient); % remove 19 20 NaNs
+K_srf.Gainfix = bst_gain_orient(K_srf.Gain, K_srf.GridOrient); 
+% K_vol.Gain = K_vol.Gain([1:18,21:end],:);
 
 % pick surface/volume lead field for use
 K = K_srf.Gainfix;
