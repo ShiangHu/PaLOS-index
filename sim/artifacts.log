@@ -5,3 +5,9 @@ brain muscle eye heart line_noise chan_noise other
 
 # with all types of artifacts after amica
 CMI: 350
+
+mulse: MC27-IC35; MC03-IC20; MC05-IC23; 
+chan noise: MC14-IC22; MC01-IC27/45
+eye: MC11-IC42; MC16-IC1; MC19-IC3; MC14-IC3; MC05-IC2; MC27-IC1;C29-IC2
+other: MC05-IC12; MC10-IC10; MC01-IC32; MC03-IC25/30
+
