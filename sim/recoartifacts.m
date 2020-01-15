@@ -1,9 +1,10 @@
-function noise = recoartifacts(ic)
+function noise = recoartifacts(ic,k)
 % emperically select the typical mulse/channel/eye/line/other artifacts
 % first review the IC type ratios of not a few cases after amica and iclabel
 % Input
 %        ic --- struct 
 %                 ic.folder, ic.name, ic.idx, ic.type
+%        k --- the kth group of different types of actifact ICs
 
 % Read Also viewictypes, selectics
 
@@ -14,7 +15,7 @@ sptopt = {'freqrange', [0.5 50]};
 ictypes = fieldnames(ic);
 
 for i=1:length(ictypes)
-    tp = getfield(ic, ictypes{i},{2});   % {k}, the kth combination
+    tp = getfield(ic, ictypes{i},{k});   % the kth combination
     nm = [datapath,filesep,tp.name,'.set'];
     icidx = tp.idx;
     EEG = pop_loadset(nm);
