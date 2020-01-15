@@ -1,4 +1,4 @@
-function svfile = var2set(datvarfile,chanvarfile,fs,varargin)
+function EEG = var2set(datvarfile,chanvarfile,fs,varargin)
 % translate simulated data matrix into .set
 % prepare EEG .set and do ICA
 % Iuput
@@ -14,15 +14,10 @@ function svfile = var2set(datvarfile,chanvarfile,fs,varargin)
 
 if isempty(varargin)
     setnm = 'Simulated EEG';
-    svfile = 'sim/sim.set';
 end
 
 % no gui pops
-EEG = pop_importdata('data',datvarfile,'chanlocs',chanvarfile,'srate',fs,...
-    'setname',setnm);
+EEG = pop_importdata('data',datvarfile,'chanlocs',chanvarfile,'srate',fs,'setname',setnm);
 
-% doing ICA
-EEG = pop_runica(EEG,'icatype','runica');
-
-pop_saveset(EEG,'filename',svfile);
+% pop_saveset(EEG,'filename',svfile);
 end
