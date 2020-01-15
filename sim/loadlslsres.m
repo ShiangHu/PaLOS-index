@@ -21,4 +21,6 @@ end
 cab; EEG = pop_loadset; viewictypes(EEG);
 
 % view the component from any subject
-cab; EEG = pop_loadset; pop_viewprops(EEG,0,35,{'freqrange', [0.5 50]},[],0)
+cab;
+sptopt = {'freqrange', [0.5 50]};
+pop_prop_extended(pop_loadset,0,20,nan,sptopt,{},0);
