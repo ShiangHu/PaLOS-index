@@ -14,6 +14,8 @@ end
 bar(bfh,EEG.etc.ic_classification.ICLabel.classifications(idx,:),'stacked','Horizontal','on');
 legend({'brain','muscle','eye','heart','line_noise','chan_noise','other'});
 set(gca,'ytick',1:min(size(EEG.icasphere))), 
-% set(bfh,'Position',[1986 1 348 973]);
+if nargin==1
+    set(bfh,'Position',[1986 1 348 973]);
+end
 colormap(jet); axis 'tight'; view(180,90); title(EEG.filename);
 end
