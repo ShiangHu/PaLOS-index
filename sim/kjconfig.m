@@ -1,8 +1,9 @@
-function [K, J, dipinfo] = kjconfig(nd)
+function [V, K, J, dipinfo] = kjconfig(nd)
 % KJCONFIG configure sEEG2scalp lead field and iEEG time series
 % Input
 %        nd --- # of dipoles to choose
 % Output
+%         V --- simulated EEG
 %         K --- lead field
 %         J --- dipolar time series
 % dipinfo --- [didx: dipole index from iEEG, vidx: index for vertices that
@@ -45,4 +46,5 @@ K = K(:,vidx);
 J = iEEGmat.Data(1:end-800,didx)'; % trim the nearly flat tail
 J = zscore(J')';
 dipinfo = struct('channels',didx,'vertices',vidx,'region',{region});
+V = K*J;
 end
