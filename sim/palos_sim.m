@@ -1,40 +1,41 @@
 
-% eeglabstart; BSTstart('');
-addpath(genpath(cd),genpath('/media/shu/hdd/iEEG study'));
+% eeglabstart(''); BSTstart('');
 clean; eeglab;
+addpath('/media/shu/hdd/iEEG study/mat');
 elc = '/media/shu/hdd/toolbox/lossless/fixlsls/cuba58/cuba58.sfp';
 fs = 200; % Hz
 fm = 50; % maximum frequency
 nw = 3;
 % ndv = unique(round(logspace(0,log10(1772),20))); %nd vector
 ndv = [100];
+nm = 'Simulation from iEEG';
+viewsptopt = {'freqrange',[0.39 50]};
 pro = zeros(length(ndv),1);
 rkr = zeros(length(ndv),4);
 
 for di = 1:length(ndv)
     
-    nd = ndv(di);
-    [K, J, dipinfo] = kjconfig(nd);
-    % forward
-    V = K*J;
+    % qc clean EEG
+    [V0, K, J, dipinfo] = kjconfig(ndv(di));
+    [proV0,rkrV0,EEG_V0] = var2qc(V0,elc,fs,nw,fm,'');
     
-    % check the spectopo
-    nm = 'Simulation from iEEG';    psdnm = [nm,'_PSD'];
-    eegplot(V,'title',nm,'plottitle',nm,'srate',200,'winlength',20,'eloc_file',elc);
-    figure('name',psdnm,'NumberTitle','off'),
-    [spectra,freqs] = spectopo(V,0,200,'percent',15,'freq',2:2:30,'title',psdnm,'chanlocs',elc,'electrodes','off');
+    % add noise and qc
+    noise = recoartifacts(selectics);
+    V = V0 + 100*noise;
+    [proV,rkrV,EEG] = var2qc(V,elc,fs,nw,fm);     
     
-    % convert .set and runica
-    EEG = pop_loadset(var2set(V,elc,fs)); eeglab redraw
+    % ICLABEL denoise
     EEG = iclabel(EEG);
     EEG = pop_icflag(EEG);
+    
+    pop_viewprops(EEG,0,1:size(EEG.icaact,1),viewsptopt,[],0);
     
     % reject components and reconstruct data
     
     % heterogeneity measures
-    [pro(di), rkr(di,:)] = qcspectra(V,nw,fs,fm); 
+    [pro(di), rkr(di,:)] = qcspectra(V,nw,fs,fm);
     
-    disp([di nd, pro(di), rkr(di,:)]);
+    disp([di ndv(di), pro(di), rkr(di,:)]);
     
     close all;
 end
