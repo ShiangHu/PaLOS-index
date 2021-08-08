@@ -24,7 +24,7 @@ for i= idx
     sbj = path(end-7:end-3);
     sbjnm{i-idx(1)+1} = sbj;
     goal = fullfile(mnuck,sbj);
-    if ~isdir(goal), mkdir(goal); end
+    if ~isfolder(goal), mkdir(goal); end
     
     for j=1:6 
         data = getfield(allStep,stepnm{j},'data');
