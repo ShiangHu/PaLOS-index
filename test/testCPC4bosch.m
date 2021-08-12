@@ -1,7 +1,10 @@
-clc;clear;close all;
+% check for the 10 cases, plot eigenvalues, eigenvector, and the
+% topographies 
+
+clean;
 addpath(genpath(cd));
-addpath(genpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\Toolbox\qeeg (andy version)\qeegp'))
-addpath 'E:\Neuroinformatics Collaboratory\BrainWorks - Ref utilities';
+addpath(genpath('E:\OneDrive - CCLAB\Scripting\Toolbox\qEEG misc\qeeg (andy version)\qeegp'))
+addpath('E:\CCLAB\BrainWorks - Documents\EEG reference\Ref utilities');
 % basename = ['MC0000045' filesep 'MC0000045'];
 % % eegdata = 'MC0000001_A.txt';
 % state = 'A';
@@ -37,10 +40,10 @@ addpath 'E:\Neuroinformatics Collaboratory\BrainWorks - Ref utilities';
 
 clear; 
 % Svv_ar = getdatamod('MC0000045-cross-A-1.mod');
-addpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\QEEG\Riemannian-qEEG')
-addpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\Toolbox\eeglab');
-addpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\iEEG study\spt_est');
-addpath('E:\OneDrive - Neuroinformatics Collaboratory\Scripting\QEEG\higgs_ridge')
+addpath('E:\OneDrive - CCLAB\Scripting\Riemann\Riemannian-qEEG')
+addpath('E:\OneDrive - CCLAB\Scripting\Toolbox\eeglab');
+addpath('E:\OneDrive - CCLAB\Scripting\iEEG study\spt_est');
+addpath('E:\OneDrive - CCLAB\Scripting\Riemann\higgs_ridge')
 load MC0000045;
 % load MC0000001_A;
 load G4cuba19;

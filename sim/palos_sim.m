@@ -1,7 +1,7 @@
 
 % eeglabstart(''); BSTstart('');
 clean; eeglab;
-addpath('/media/shu/hdd/iEEG study/mat');
+addpath('/OneDrive - CCLAB/Scripting/iEEG study/mat/');
 elc = '/media/shu/hdd/toolbox/lossless/fixlsls/cuba58/cuba58.sfp';
 fs = 200; % Hz
 fm = 50; % maximum frequency

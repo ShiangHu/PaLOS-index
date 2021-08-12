@@ -4,13 +4,15 @@ function [Lambda,Q] = CPCstepwise1(S,n,pmax,lmax)
 %       covariance matrices
 %       n number of samples for each Cov 1Xk
 %       pmax number of common principle components
-%       lmax maximum number of cokponent <p
+%       lmax maximum number of component <p
 %Output
 %       Lambda   eigenvalues pXk
 %       Q              eigenvectors pXp (CPC)
-% Reference: Stepwise Common Principal Components Trendafilov
 
-% Pedro, Andy
+% Reference:Trendafilov, N.T., 2010. Stepwise estimation of common principal components. 
+% Computational Statistics and Data Analysis 12.
+
+% Pedro, Andy, Aug8, 2019
 
 
 n=n(:)';
