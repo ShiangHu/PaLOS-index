@@ -3,18 +3,18 @@
 % calculate all the index
 
 % Confirmed with Nic that: Orgin=CRD, HighVar=Final
+% see https://github.com/methlabUZH/automagic/wiki/Quality-Assessment-and-Rating#combination-of-file-prefixes
 
 clean;
-ipres  = dir(fullfile('*hbn1*','**','*ip*.mat'));
-allres = dir(fullfile('*hbn1*','**','all*.mat'));
-for i=1:length(ipres)
+preres  = dir(fullfile('*bns1*','**','*p_*.mat'));
+for i=1:length(preres)
     disp(i)
-    sbjpath = ipres(i).folder;
+    sbjpath = preres(i).folder;
 
-    load(fullfile(sbjpath,ipres(i).name),'EEG');
+    load(fullfile(sbjpath,preres(i).name),'EEG');
     EEGItpl = EEG;
     
-    save(fullfile(sbjpath,allres(i).name),'EEGItpl','-append');
+    save(fullfile(sbjpath,'allSteps_Raw.mat'),'EEGItpl','-append');
 end
 
 
