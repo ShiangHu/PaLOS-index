@@ -6,7 +6,7 @@ clean;
 rmdir('hbn1ck','s'), mkdir('hbn1ck');
 
 atmgres = dir(fullfile('*hbn1*','**','all*.mat'));
-stepnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGFinal'};
+stepnm = {'EEGOrig','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
 
 nstp = length(stepnm);
 nsbj = length(atmgres);
@@ -15,7 +15,7 @@ pro = zeros(nstp,nsbj); % PaLOS index
 nw = 3; fs = 500; fmax = 30; fmin=0.99; % paras fpr spt
 
 sbjnm = cell(1,nsbj);
-ext = {'_O','_C','_F','_L','_H','_E'};
+ext = {'_1O','_2F','_3L','_4H','_5E'};
 
 tic;
 for i= 1:nsbj
