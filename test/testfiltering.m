@@ -1,14 +1,16 @@
 % This is to check why high pass 1hz filtering increases palosi
 
 % Batch calculating the CPC 
-initpalos;
 clean;
-rmdir('hbn3ck','s'), mkdir('hbn3ck');
+initpalos;
+prj = 'hbn3'; % change this with automagic project name
+ckfd = [prj,'ck'];
+rmdir(ckfd,'s'), mkdir(ckfd);
 
-atmgres = dir(fullfile('*hbn1*','**','all*.mat'));
+atmgres = dir(fullfile(['*',prj,'*'],'**','all*.mat'));
 stepnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
 
-nstp = length(stepnm);
+nstp = length(stepnm); 
 nsbj = length(atmgres);
 pro = zeros(nstp,nsbj); % PaLOS index
 
@@ -21,30 +23,32 @@ tic;
 for i= 1:nsbj
     disp(['>>>>-------------------preprocessing sbj:',blanks(10),num2str(i)]);
     allpath = atmgres(i).folder;
-    filename = atmgres(i).name;
-    allStep = load(fullfile(allpath,filename));
+    allnm = atmgres(i).name;
+    allStep = load(fullfile(allpath,allnm));
+
+    % fix bad channls
     badchn = allStep.EEGFinal.automagic.autoBadChans;
     allStep.EEGcrd.data(badchn,:)=NaN;
     allStep.EEGfiltered.data(badchn,:)=NaN;
     
     sbj = allpath(end-7:end-3);
-    sbjnm{i} = sbj;
-    goal = fullfile('hbn3ck',sbj);
+    goal = fullfile(ckfd,sbj);
     mkdir(goal);
     
     for j=1:nstp 
         data = getfield(allStep,stepnm{j},'data');
         chanlocs = getfield(allStep,stepnm{j},'chanlocs');
 
-        eleid = data(:,1)~=0&~isnan(data(:,1));
-        data = data(eleid,:);     
-        chanlocs = chanlocs(eleid);
+        rmid = data(:,1)==0|isnan(data(:,1));
+        data(rmid,:)=[];
+        chanlocs(rmid)=[];
         
         svfd = fullfile(goal,[sbj,ext{j}]);
         pro(j,i) = qcspectra(data,nw,fs,fmax,fmin,chanlocs,svfd);
         
     end
+    sbjnm{i} = sbj;
     toc;
 end
 
-save prohbn1 pro sbjnm;
+save(['pro',prj],'pro','sbjnm');
