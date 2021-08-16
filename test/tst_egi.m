@@ -1,9 +1,9 @@
-% This is to check why high pass 1hz filtering increases palosi
+% This is to calculate the palosi at each step for human phantom egi
 
 % Batch calculating the CPC 
 clean;
 initpalos;
-prj = 'hbn3'; % change this with automagic project name
+prj = 'egi'; % change this with automagic project name
 ckfd = [prj,'ck'];
 rmdir(ckfd,'s'), mkdir(ckfd);
 
