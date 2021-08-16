@@ -24,7 +24,7 @@ for i=1:length(preres)
     load(fullfile(sbjpath,preres(i).name),'EEG');
     EEGItpl = EEG;
     
-    save(fullfile(sbjpath,atmall(1).name),'EEGItpl','-append');
+    save(fullfile(sbjpath,atmall(i).name),'EEGItpl','-append');
     toc
 end
 
