@@ -4,8 +4,7 @@
 clean;
 initpalos;
 prj = 'cbm1'; % change this with automagic project name
-ckfd = [prj,'ck'];
-rmdir(ckfd,'s'), mkdir(ckfd);
+ckfd = [prj,'ck'];crtfd(ckfd);
 
 atmgres = dir(fullfile(['*',prj,'*'],'**','all*.mat'));
 stepnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
@@ -51,4 +50,4 @@ for i= 1:nsbj
     toc;
 end
 
-save(['pro',prj],'pro','sbjnm');
+% save(['pro',prj],'pro','sbjnm');

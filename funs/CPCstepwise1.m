@@ -44,5 +44,10 @@ for  j=1:pmax
     
 end %p
 for i=1:k, Lambda(:,i)=diag(Q'*S(:,:,i)*Q); end%i
+
+
+% output predefined number of CPs
+Lambda = Lambda(1:pmax,:);
+Q = Q(:,1:pmax);
 end
 

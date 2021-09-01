@@ -4,8 +4,7 @@
 clean;
 initpalos;
 prj = 'cbm1'; % change this with automagic project name
-ckfd = [prj,'ck'];
-rmdir(ckfd,'s'), mkdir(ckfd);
+ckfd = [prj,'ck2']; crtfd(ckfd);
 
 atmgres = dir(fullfile(['*',prj,'*'],'**','all*.mat'));
 stepnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
@@ -27,9 +26,9 @@ for i= 1:nsbj
     allStep = load(fullfile(allpath,allnm));
 
     % fix bad channls
-%     badchn = allStep.EEGFinal.automagic.autoBadChans;
-%     allStep.EEGcrd.data(badchn,:)=NaN;
-%     allStep.EEGfiltered.data(badchn,:)=NaN;
+    badchn = allStep.EEGFinal.automagic.autoBadChans;
+    allStep.EEGcrd.data(badchn,:)=NaN;
+    allStep.EEGfiltered.data(badchn,:)=NaN;
     
     [~,sbj] = fileparts(allpath);
     goal = fullfile(ckfd,sbj);
@@ -38,7 +37,10 @@ for i= 1:nsbj
     for j=1:nstp 
         data = getfield(allStep,stepnm{j},'data');
         chanlocs = getfield(allStep,stepnm{j},'chanlocs');
-
+        if size(data,1)==58&&isnan(data(58,1))&&length(chanlocs)==57
+           data(58,:)=[];
+        end
+        
         rmid = data(:,1)==0|isnan(data(:,1));
         data(rmid,:)=[];
         chanlocs(rmid)=[];
@@ -51,4 +53,4 @@ for i= 1:nsbj
     toc;
 end
 
-save(['pro',prj],'pro','sbjnm');
+% save(['pro',prj],'pro','sbjnm');

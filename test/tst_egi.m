@@ -1,16 +1,15 @@
 % This is to calculate the palosi at each step for human phantom egi
 
-% Batch calculating the CPC 
+% Batch calculating the CPC
 clean;
 initpalos;
 prj = 'egi'; % change this with automagic project name
-ckfd = [prj,'ck'];
-rmdir(ckfd,'s'), mkdir(ckfd);
+ckfd = [prj,'ck2']; crtfd(ckfd);
 
 atmgres = dir(fullfile(['*',prj,'*'],'**','all*.mat'));
 stepnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
 
-nstp = length(stepnm); 
+nstp = length(stepnm);
 nsbj = length(atmgres);
 pro = zeros(nstp,nsbj); % PaLOS index
 
@@ -25,20 +24,19 @@ for i= 1:nsbj
     allpath = atmgres(i).folder;
     allnm = atmgres(i).name;
     allStep = load(fullfile(allpath,allnm));
-
+    
     % fix bad channls
     badchn = allStep.EEGFinal.automagic.autoBadChans;
     allStep.EEGcrd.data(badchn,:)=NaN;
     allStep.EEGfiltered.data(badchn,:)=NaN;
     
-    sbj = allpath(end-7:end-3);
-    goal = fullfile(ckfd,sbj);
-    mkdir(goal);
+    [~,sbj] = fileparts(allpath);
+    goal = fullfile(ckfd,sbj); crtfd(goal);
     
-    for j=1:nstp 
+    for j=1:nstp
         data = getfield(allStep,stepnm{j},'data');
         chanlocs = getfield(allStep,stepnm{j},'chanlocs');
-
+        
         rmid = data(:,1)==0|isnan(data(:,1));
         data(rmid,:)=[];
         chanlocs(rmid)=[];
@@ -51,4 +49,4 @@ for i= 1:nsbj
     toc;
 end
 
-save(['pro',prj],'pro','sbjnm');
+% save(['pro',prj],'pro','sbjnm','stepnm');

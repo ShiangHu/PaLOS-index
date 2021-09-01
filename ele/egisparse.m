@@ -1,4 +1,4 @@
-function [idx116,idx12,idx113]=egisparse(locpath)
+function idx = egisparse(locpath)
 % To match the subsample of 10-20, 10-10 from EGI129
 % Input
 %             locpath: path to egi 129  channel location
@@ -65,7 +65,13 @@ end
 
 idx113(idx113==0)=[]; idx113 = idx116(idx113);
 
-figure,topoplot([], locpath,'electrodes','ptsnumbers','plotchans',idx12);
-figure,topoplot([], locpath,'electrodes','ptsnumbers','plotchans',idx113);
-figure,topoplot([], locpath,'electrodes','ptsnumbers','plotchans',idx116);
+figure,subplot(141), topoplot([], locpath,'electrodes','pts','plotchans',idx12,'headrad',0.45); title('NC=21')
+subplot(142),topoplot([], locpath,'electrodes','pts','plotchans',idx113); title('NC=31')
+subplot(143),topoplot([], locpath,'electrodes','pts','plotchans',idx116); title('NC=69')
+subplot(144),topoplot([], locpath,'electrodes','pts'); title('NC=129');
+fg=gcf;fg.Position=[ 538         240        1017         393];
+idx.id1=1:129;
+idx.id2 = idx116;
+idx.id3 = idx113;
+idx.id4 = idx12;
 end
