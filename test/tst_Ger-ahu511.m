@@ -1,10 +1,11 @@
-% This is to check why high pass 1hz filtering increases palosi
+% This is to calculate the palosi at each step for 10 hbn cases
 
 % Batch calculating the CPC 
 clean;
 initpalos;
-prj = 'bns1'; % change this with automagic project name
-ckfd = [prj,'ck2']; crtfd(ckfd);
+prj = 'Ger'; % change this with automagic project name
+ckfd = [prj,'ck'];
+rmdir(ckfd,'s'), mkdir(ckfd);
 
 atmgres = dir(fullfile(['*',prj,'*'],'**','all*.mat'));
 stepnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
@@ -13,7 +14,7 @@ nstp = length(stepnm);
 nsbj = length(atmgres);
 pro = zeros(nstp,nsbj); % PaLOS index
 
-nw = 3; fs = 200; fmax = 30; fmin=0.99; % paras for spt
+nw = 3; fs = 500; fmax = 30; fmin=0.99; % paras fpr spt
 
 sbjnm = cell(1,nsbj);
 ext = {'_1O','_2C','_3F','_4L','_5H','_6E'};
@@ -30,17 +31,14 @@ for i= 1:nsbj
     allStep.EEGcrd.data(badchn,:)=NaN;
     allStep.EEGfiltered.data(badchn,:)=NaN;
     
-    [~,sbj] = fileparts(allpath);
+    sbj = allpath(end-7:end-3);
     goal = fullfile(ckfd,sbj);
     mkdir(goal);
     
-     for j=1:nstp 
+    for j=1:nstp 
         data = getfield(allStep,stepnm{j},'data');
         chanlocs = getfield(allStep,stepnm{j},'chanlocs');
-        if size(data,1)==19&&isnan(data(19,1))&&length(chanlocs)==18
-           data(19,:)=[];
-        end
-        
+
         rmid = data(:,1)==0|isnan(data(:,1));
         data(rmid,:)=[];
         chanlocs(rmid)=[];
@@ -53,4 +51,4 @@ for i= 1:nsbj
     toc;
 end
 
-% save(['pro',prj],'pro','sbjnm');
+save(['pro',prj],'pro','sbjnm');

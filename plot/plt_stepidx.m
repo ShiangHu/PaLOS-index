@@ -27,7 +27,7 @@ if isfield(pros,'stpnm')
 elseif size(pros.pro,1)==4
     stpnm = {'NC=129','NC=69','NC=31','NC=21'};
 else
-    stpnm = initpalos;
+    stpnm = {'EEGOrig','EEGcrd','EEGfiltered','EEGICLabel','EEGHighvarred','EEGItpl'};
 end
 
 bar(ax,categorical(sbjnm(subid)), pros.pro(:,subid)');

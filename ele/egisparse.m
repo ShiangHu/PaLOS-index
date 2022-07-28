@@ -1,4 +1,4 @@
-function idx = egisparse(locpath)
+function [idx, Val12] = egisparse(locpath)
 % To match the subsample of 10-20, 10-10 from EGI129
 % Input
 %             locpath: path to egi 129  channel location
@@ -19,12 +19,12 @@ loc129nm={loc129.labels};
 Set12 = {'E22', 'E9', 'E11', 'E24', 'E124', 'E33', 'E122', ...
     'Cz', 'E36', 'E104', 'E45', 'E108', 'E52', 'E92' ...
     'E58', 'E96', 'E70', 'E75', 'E83', 'E62', 'E15'};
-% Val12 =   {'Fp1', 'Fp2', 'Fz', 'F3', 'F4', 'F7', 'F8', 'Cz', ...
-%     'C3', 'C4', 'T7', 'T8', 'P3', 'P4', 'P7', 'P8', 'O1', ...
-%     'Oz', 'O2', 'Pz', 'FPZ'};
+Val12 =   {'Fp1', 'Fp2', 'Fz', 'F3', 'F4', 'F7', 'F8', 'Cz', ...
+    'C3', 'C4', 'T7', 'T8', 'P3', 'P4', 'P7', 'P8', 'O1', ...
+    'Oz', 'O2', 'Pz', 'FPZ'};
 
 % 10-10 32 channels
-addpath('E:\OneDrive - CCLAB\Scripting\Toolbox\eeglab\sample_locs\')
+addpath('D:\OneDrive - CCLAB\Scripting\Toolbox\eeglab\sample_locs\')
 % ls('E:\OneDrive - CCLAB\Scripting\Toolbox\eeglab\sample_locs\')
 bv32 = readlocs('Standard-10-10-Cap33.locs');
 bvnm = {bv32.labels};
@@ -65,11 +65,11 @@ end
 
 idx113(idx113==0)=[]; idx113 = idx116(idx113);
 
-figure,subplot(141), topoplot([], locpath,'electrodes','pts','plotchans',idx12,'headrad',0.45); title('NC=21')
-subplot(142),topoplot([], locpath,'electrodes','pts','plotchans',idx113); title('NC=31')
-subplot(143),topoplot([], locpath,'electrodes','pts','plotchans',idx116); title('NC=69')
-subplot(144),topoplot([], locpath,'electrodes','pts'); title('NC=129');
-fg=gcf;fg.Position=[ 538         240        1017         393];
+% figure,subplot(141), topoplot([], locpath,'electrodes','pts','plotchans',idx12,'headrad',0.45); title('NC=21')
+% subplot(142),topoplot([], locpath,'electrodes','pts','plotchans',idx113); title('NC=31')
+% subplot(143),topoplot([], locpath,'electrodes','pts','plotchans',idx116); title('NC=69')
+% subplot(144),topoplot([], locpath,'electrodes','pts'); title('NC=129');
+% fg=gcf;fg.Position=[ 538         240        1017         393];
 idx.id1=1:129;
 idx.id2 = idx116;
 idx.id3 = idx113;

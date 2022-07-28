@@ -1,0 +1,46 @@
+% output a group of qc 
+
+clean;
+datdir = 'D:/CCLAB/bbds18';
+regnm = 'Raw.mat';
+datstr = dir(fullfile(datdir,'**',regnm));
+ele = '19Cuba10-20.locs';
+nbic = 19;
+nbsbj = length(datstr);
+pvafval = zeros(nbic,nbsbj);
+pro = zeros(nbic,nbsbj);
+class_id = zeros(nbic,nbsbj);
+
+nw = 3.5;
+
+for j=1:nbsbj
+    disp(['-------------current processing------------:' blanks(10) num2str(j) '/' num2str(nbsbj)])
+    EEG = pop_loadset(regnm,datstr(j).folder);
+    EEG = eeg_checkset(EEG);
+    if EEG.srate~=200
+        EEG = pop_resample(EEG,200);
+        EEG.srate = 200;
+    end
+    EEG.data = EEG.data(:,1:end);
+    if isempty(EEG.chanlocs), EEG.chanlocs = readlocs(ele); end
+    EEG.data = reref(EEG.data,[]);
+    EEG.ref = 'average reference';
+    EEG.event = [];
+    EEG = eeg_checkset(EEG);
+    EEG = pop_runica(EEG,'icatype','runica');
+    EEG = iclabel(EEG);
+    
+    % nbic = size(EEG.icawinv, 2);
+    % pop_viewprops(EEG, 0, 1:nbic, {'freqrange',[2 40]});
+    % figure, spectopo(EEG.data, 0, 200, 'freq', [2:2:40], 'chanlocs', EEG.chanlocs);
+    
+    [EEG,pvafval(:,j),class_id(:,j)] = sort_ic(EEG);
+    % pop_viewprops(EEG, 0, 1:nbic, {'freqrange',[2 40]});
+    
+    for i=1:nbic
+        V = EEG.icawinv(:, 1:i) *EEG.icaact(1:i, :);
+        pro (i,j) = qcspectra(V,nw,EEG.srate, 40, 0);
+    end
+end
+
+% save bbdssim_18raw datstr pro pvafval class_id

@@ -32,6 +32,9 @@ function plt_paramap(lmd,Q,procd,fbd,pmax,svfd,nm,chanlocs,hr)
     fg=gcf; fg.Position = [24 317 1105 585];
     saveas(gcf,fullfile(svfd,['par_',nm]),'svg');
     
+    
+    
+    
     figure,
     for i=1:8
         subplot(4,2,i)

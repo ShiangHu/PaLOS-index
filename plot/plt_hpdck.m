@@ -2,7 +2,7 @@
 
 clean;
 
-svfd = 'E:\CCLAB\ash - qceeg\4 HPD_atmg_rest\figure';
+svfd = 'D:\CCLAB\ash - qceeg\4 HPD_atmg_rest\figure';
 
 
 plt_stepidx('proegi.mat',1:10)
